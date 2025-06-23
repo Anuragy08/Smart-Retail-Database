@@ -69,7 +69,6 @@ Retail-Database-Analysis/
 
 **Anurag Yadav**  
 Data Analyst | SQL Enthusiast  
-[LinkedIn Profile](https://www.linkedin.com/in/anurag-yadav-a162a9b4/) | [GitHub](https://github.com/Anuragy08)
 
 ---
 
