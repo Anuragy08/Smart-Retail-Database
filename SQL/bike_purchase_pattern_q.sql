@@ -1,0 +1,165 @@
+create database bike_purchase_pattern;
+
+use bike_purchase_pattern;
+
+create table brands
+(
+brand_id int auto_increment primary key,
+brand_name varchar(255)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/brands.csv'
+into table brands
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table categories
+(
+Category_id int auto_increment primary key,
+Category_name varchar(255)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/categories.csv'
+into table categories
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table customers
+(
+customer_id int auto_increment primary key,
+first_name varchar(50),
+last_name varchar(50),
+phone varchar(20),
+email varchar(50) unique,
+street varchar(100),
+city varchar(50),
+state varchar(50),
+zip_code varchar(10)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/customers.csv'
+into table customers
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table order_items
+(
+order_id int,
+item_id int,
+product_id int,
+quantity int,
+list_price decimal(10,2),
+discount decimal(5,2),
+foreign key (order_id) REFERENCES orders(order_id),
+foreign key (product_id) REFERENCES products(product_id)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/order_items.csv'
+into table order_items
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table orders
+(
+order_id int auto_increment primary key,
+customer_id int,
+order_status int,
+order_date date,
+required_date date,
+shipped_date date,
+store_id int,
+staff_id int,
+foreign key (customer_id) REFERENCES customers(customer_id),
+foreign key (store_id) REFERENCES stores(store_id),
+foreign key (staff_id) REFERENCES staffs(staff_id)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/orders.csv'
+into table orders
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table products
+(
+product_id int auto_increment primary key,
+product_name varchar(255),
+brand_id int,
+category_id int,
+model_year year,
+list_price decimal(10,2),
+foreign key (brand_id) REFERENCES brands(brand_id),
+foreign key (category_id) REFERENCES categories(category_id)
+);
+
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/products.csv'
+into table products
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table staffs
+(
+staff_id int auto_increment primary key,
+first_name varchar(50),
+last_name varchar(50),
+email varchar(100) unique,
+phone varchar(30),
+active int,
+store_id int,
+manager_id int 
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/staffs.csv'
+into table staffs
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table stocks
+(
+store_id int,
+product_id int,
+quantity int,
+foreign key (store_id) REFERENCES stores(store_id)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/stocks.csv'
+into table stocks
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+create table stores
+(
+store_id int auto_increment primary key,
+store_name varchar(100),
+phone varchar(20),
+email varchar(100) unique,
+street varchar(50),
+city varchar(50),
+state varchar(10),
+zip_code varchar(20)
+);
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/stores.csv'
+into table stores
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+
